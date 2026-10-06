@@ -1,0 +1,2987 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<meta
+    name="theme-color"
+    content="#090b10"
+>
+
+<title>Tiga Disiel Official</title>
+
+<!-- Supabase -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<!-- Font Awesome -->
+<link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+>
+
+<style>
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+:root{
+    --bg:#090b10;
+    --surface:#11151d;
+    --surface2:#181d27;
+    --border:#272d38;
+    --text:#ffffff;
+    --muted:#8e97a6;
+    --gold:#d9a441;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:Arial,Helvetica,sans-serif;
+    min-height:100vh;
+    padding-bottom:110px;
+}
+
+button{
+    font-family:inherit;
+}
+
+/* =========================================================
+   SPLASH SCREEN
+========================================================= */
+
+#splashScreen{
+
+    position:fixed;
+
+    inset:0;
+
+    z-index:9999;
+
+    background:#090b10;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    overflow:hidden;
+
+    transition:
+        opacity .7s ease,
+        visibility .7s ease;
+}
+
+#splashScreen.hide{
+
+    opacity:0;
+
+    visibility:hidden;
+
+    pointer-events:none;
+}
+
+.splash-content{
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+
+    justify-content:center;
+
+    text-align:center;
+
+    animation:splashEnter 1.2s ease forwards;
+}
+
+.splash-photo{
+
+    width:145px;
+
+    height:145px;
+
+    border-radius:50%;
+
+    object-fit:cover;
+
+    border:3px solid var(--gold);
+
+    background:var(--surface);
+
+    box-shadow:
+        0 0 0 8px rgba(217,164,65,.08),
+        0 15px 50px rgba(0,0,0,.5);
+
+    animation:
+        photoAppear 1.1s ease forwards,
+        photoFloat 3s ease-in-out 1.2s infinite;
+}
+
+.splash-name{
+
+    margin-top:22px;
+
+    font-size:32px;
+
+    font-weight:900;
+
+    letter-spacing:1px;
+
+    opacity:0;
+
+    animation:nameAppear .8s ease .5s forwards;
+}
+
+.splash-name span{
+
+    color:var(--gold);
+
+}
+
+.splash-line{
+
+    width:0;
+
+    height:3px;
+
+    margin-top:14px;
+
+    border-radius:10px;
+
+    background:var(--gold);
+
+    animation:lineAppear .8s ease 1s forwards;
+}
+
+@keyframes splashEnter{
+
+    from{
+        transform:scale(.94);
+        opacity:0;
+    }
+
+    to{
+        transform:scale(1);
+        opacity:1;
+    }
+
+}
+
+@keyframes photoAppear{
+
+    from{
+        transform:scale(.5);
+        opacity:0;
+    }
+
+    to{
+        transform:scale(1);
+        opacity:1;
+    }
+
+}
+
+@keyframes photoFloat{
+
+    0%,100%{
+        transform:translateY(0);
+    }
+
+    50%{
+        transform:translateY(-7px);
+    }
+
+}
+
+@keyframes nameAppear{
+
+    from{
+        transform:translateY(15px);
+        opacity:0;
+    }
+
+    to{
+        transform:translateY(0);
+        opacity:1;
+    }
+
+}
+
+@keyframes lineAppear{
+
+    from{
+        width:0;
+    }
+
+    to{
+        width:90px;
+    }
+
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.header{
+
+    position:sticky;
+
+    top:0;
+
+    z-index:50;
+
+    background:rgba(9,11,16,.96);
+
+    border-bottom:1px solid var(--border);
+
+    padding:16px;
+}
+
+.header-inner{
+
+    max-width:900px;
+
+    margin:auto;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+}
+
+.logo{
+
+    font-size:20px;
+
+    font-weight:800;
+
+    letter-spacing:.4px;
+}
+
+.logo span{
+
+    color:var(--gold);
+
+}
+
+.refresh{
+
+    width:42px;
+
+    height:42px;
+
+    border-radius:50%;
+
+    background:var(--surface);
+
+    color:white;
+
+    border:1px solid var(--border);
+
+    cursor:pointer;
+
+    font-size:16px;
+
+}
+
+.refresh:active{
+
+    transform:scale(.92);
+
+}
+
+
+/* =========================================================
+   MAIN
+========================================================= */
+
+main{
+
+    max-width:900px;
+
+    margin:auto;
+
+    padding:18px 16px;
+}
+
+
+/* =========================================================
+   NAVIGATION
+========================================================= */
+
+.nav{
+
+    display:flex;
+
+    gap:8px;
+
+    overflow-x:auto;
+
+    scrollbar-width:none;
+
+    margin-bottom:20px;
+}
+
+.nav::-webkit-scrollbar{
+
+    display:none;
+
+}
+
+.nav button{
+
+    flex-shrink:0;
+
+    padding:10px 17px;
+
+    border-radius:30px;
+
+    border:1px solid var(--border);
+
+    background:var(--surface);
+
+    color:white;
+
+    cursor:pointer;
+
+}
+
+.nav button.active{
+
+    background:var(--gold);
+
+    border-color:var(--gold);
+
+    color:#111;
+
+}
+
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.hero{
+
+    border:1px solid var(--border);
+
+    border-radius:24px;
+
+    padding:22px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(217,164,65,.2),
+            rgba(17,21,29,.95)
+        );
+
+    margin-bottom:25px;
+}
+
+.hero-content{
+
+    display:flex;
+
+    gap:18px;
+
+    align-items:center;
+}
+
+.artist-photo{
+
+    width:115px;
+
+    height:115px;
+
+    border-radius:20px;
+
+    object-fit:cover;
+
+    background:var(--surface2);
+
+    border:1px solid var(--border);
+
+}
+
+.hero h1{
+
+    font-size:29px;
+
+    margin-bottom:7px;
+
+}
+
+.hero p{
+
+    color:var(--muted);
+
+    line-height:1.55;
+
+}
+
+
+/* =========================================================
+   SECTIONS
+========================================================= */
+
+.section{
+
+    margin-top:25px;
+
+}
+
+.section-title{
+
+    margin-bottom:14px;
+
+}
+
+.section-title h2{
+
+    font-size:21px;
+
+}
+
+
+/* =========================================================
+   SONGS
+========================================================= */
+
+.song-list{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:10px;
+
+}
+
+.song{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+    background:var(--surface);
+
+    border:1px solid var(--border);
+
+    border-radius:17px;
+
+    padding:11px;
+
+}
+
+.cover{
+
+    width:62px;
+
+    height:62px;
+
+    border-radius:12px;
+
+    object-fit:cover;
+
+    background:var(--surface2);
+
+    flex-shrink:0;
+
+}
+
+.song-info{
+
+    flex:1;
+
+    min-width:0;
+
+}
+
+.song-title{
+
+    font-weight:700;
+
+    overflow:hidden;
+
+    text-overflow:ellipsis;
+
+    white-space:nowrap;
+
+}
+
+.song-meta{
+
+    color:var(--muted);
+
+    font-size:13px;
+
+    margin-top:5px;
+
+}
+
+.actions{
+
+    display:flex;
+
+    gap:7px;
+
+}
+
+.action{
+
+    width:40px;
+
+    height:40px;
+
+    border-radius:50%;
+
+    border:1px solid var(--border);
+
+    background:var(--surface2);
+
+    color:white;
+
+    cursor:pointer;
+
+    font-size:15px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+}
+
+.action:active{
+
+    transform:scale(.91);
+
+}
+
+.action.play{
+
+    background:var(--gold);
+
+    color:#111;
+
+    border-color:var(--gold);
+
+}
+
+
+/* =========================================================
+   EMPTY / LOADING
+========================================================= */
+
+.empty{
+
+    padding:30px 15px;
+
+    text-align:center;
+
+    color:var(--muted);
+
+    border:1px dashed var(--border);
+
+    border-radius:16px;
+
+}
+
+.loading{
+
+    padding:30px;
+
+    text-align:center;
+
+    color:var(--muted);
+
+}
+
+
+/* =========================================================
+   ABOUT
+========================================================= */
+
+.about{
+
+    background:var(--surface);
+
+    border:1px solid var(--border);
+
+    border-radius:20px;
+
+    padding:20px;
+
+    line-height:1.7;
+
+    color:var(--muted);
+
+}
+
+
+/* =========================================================
+   SOCIAL NETWORKS
+========================================================= */
+
+.social-section{
+
+    margin-top:25px;
+
+}
+
+.social-links{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(
+            auto-fit,
+            minmax(140px,1fr)
+        );
+
+    gap:10px;
+
+}
+
+.social-link{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:11px;
+
+    min-width:0;
+
+    padding:14px;
+
+    background:var(--surface);
+
+    border:1px solid var(--border);
+
+    border-radius:15px;
+
+    color:white;
+
+    text-decoration:none;
+
+    transition:
+        transform .2s ease,
+        border-color .2s ease,
+        background .2s ease;
+}
+
+.social-link:hover{
+
+    border-color:var(--gold);
+
+    background:var(--surface2);
+
+    transform:translateY(-2px);
+
+}
+
+.social-link:active{
+
+    transform:scale(.97);
+
+}
+
+.social-link i{
+
+    width:23px;
+
+    min-width:23px;
+
+    text-align:center;
+
+    font-size:19px;
+
+}
+
+.social-name{
+
+    font-size:13px;
+
+    font-weight:700;
+
+    overflow:hidden;
+
+    text-overflow:ellipsis;
+
+    white-space:nowrap;
+
+}
+
+.loading-social{
+
+    grid-column:1/-1;
+
+    padding:20px;
+
+    text-align:center;
+
+    color:var(--muted);
+
+}
+
+
+/* =========================================================
+   VIDEO
+========================================================= */
+
+.video-item{
+
+    cursor:pointer;
+
+}
+
+.video-item:active{
+
+    transform:scale(.99);
+
+}
+
+
+/* =========================================================
+   PLAYER
+========================================================= */
+
+.player{
+
+    position:fixed;
+
+    z-index:100;
+
+    left:0;
+
+    right:0;
+
+    bottom:0;
+
+    background:#0d1119;
+
+    border-top:1px solid var(--border);
+
+    padding:11px 15px;
+
+}
+
+.player-inner{
+
+    max-width:900px;
+
+    margin:auto;
+
+}
+
+.player-top{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:11px;
+
+}
+
+.player-cover{
+
+    width:50px;
+
+    height:50px;
+
+    object-fit:cover;
+
+    border-radius:10px;
+
+    background:var(--surface2);
+
+}
+
+.player-info{
+
+    flex:1;
+
+    min-width:0;
+
+}
+
+.player-title{
+
+    font-size:14px;
+
+    font-weight:700;
+
+    overflow:hidden;
+
+    white-space:nowrap;
+
+    text-overflow:ellipsis;
+
+}
+
+.player-status{
+
+    color:var(--muted);
+
+    font-size:12px;
+
+    margin-top:3px;
+
+}
+
+.player-button{
+
+    width:44px;
+
+    height:44px;
+
+    border-radius:50%;
+
+    border:0;
+
+    background:var(--gold);
+
+    color:#111;
+
+    cursor:pointer;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+}
+
+.player-button:active{
+
+    transform:scale(.92);
+
+}
+
+.progress{
+
+    width:100%;
+
+    margin-top:8px;
+
+    accent-color:var(--gold);
+
+}
+
+audio{
+
+    display:none;
+
+}
+
+
+/* =========================================================
+   TOAST
+========================================================= */
+
+#toast{
+
+    position:fixed;
+
+    left:50%;
+
+    bottom:120px;
+
+    transform:
+        translateX(-50%)
+        translateY(20px);
+
+    background:#181d27;
+
+    border:1px solid var(--border);
+
+    color:white;
+
+    padding:11px 16px;
+
+    border-radius:12px;
+
+    font-size:13px;
+
+    opacity:0;
+
+    pointer-events:none;
+
+    transition:.3s ease;
+
+    z-index:500;
+
+    max-width:90%;
+
+    text-align:center;
+
+}
+
+#toast.show{
+
+    opacity:1;
+
+    transform:
+        translateX(-50%)
+        translateY(0);
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media(max-width:600px){
+
+    main{
+
+        padding:14px;
+
+    }
+
+    .hero{
+
+        padding:17px;
+
+    }
+
+    .artist-photo{
+
+        width:85px;
+
+        height:85px;
+
+    }
+
+    .hero h1{
+
+        font-size:23px;
+
+    }
+
+    .song{
+
+        padding:9px;
+
+    }
+
+    .cover{
+
+        width:55px;
+
+        height:55px;
+
+    }
+
+    .splash-photo{
+
+        width:125px;
+
+        height:125px;
+
+    }
+
+    .splash-name{
+
+        font-size:27px;
+
+    }
+
+    .social-links{
+
+        grid-template-columns:
+            repeat(2,1fr);
+
+    }
+
+    .social-link{
+
+        padding:12px;
+
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- =======================================================
+     SPLASH
+======================================================= -->
+
+<div id="splashScreen">
+
+    <div class="splash-content">
+
+        <img
+            id="splashPhoto"
+            class="splash-photo"
+            alt="Tiga Disiel"
+        >
+
+        <div class="splash-name">
+
+            TIGA <span>DISIEL</span>
+
+        </div>
+
+        <div class="splash-line"></div>
+
+    </div>
+
+</div>
+
+
+<!-- =======================================================
+     HEADER
+======================================================= -->
+
+<header class="header">
+
+    <div class="header-inner">
+
+        <div class="logo">
+
+            TIGA <span>DISIEL</span>
+
+        </div>
+
+        <button
+            class="refresh"
+            id="refreshBtn"
+            aria-label="Actualiser">
+
+            <i class="fa-solid fa-rotate"></i>
+
+        </button>
+
+    </div>
+
+</header>
+
+
+<!-- =======================================================
+     MAIN
+======================================================= -->
+
+<main>
+
+
+    <!-- NAV -->
+
+    <nav class="nav">
+
+        <button
+            class="active"
+            data-page="home">
+
+            Accueil
+
+        </button>
+
+
+        <button
+            data-page="music">
+
+            Musiques
+
+        </button>
+
+
+        <button
+            data-page="videos">
+
+            Clips
+
+        </button>
+
+
+        <button
+            data-page="artist">
+
+            Artiste
+
+        </button>
+
+    </nav>
+
+
+    <!-- =====================================================
+         HOME
+    ====================================================== -->
+
+    <section id="homePage">
+
+
+        <div class="hero">
+
+            <div class="hero-content">
+
+
+                <img
+                    id="artistPhoto"
+                    class="artist-photo"
+                    alt="Tiga Disiel"
+                >
+
+
+                <div>
+
+                    <h1 id="artistName">
+
+                        Tiga Disiel
+
+                    </h1>
+
+
+                    <p id="artistBio">
+
+                        Chargement...
+
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="section">
+
+
+            <div class="section-title">
+
+                <h2>
+
+                    Dernières sorties
+
+                </h2>
+
+            </div>
+
+
+            <div
+                id="latestSongs"
+                class="song-list">
+
+                <div class="loading">
+
+                    Chargement des musiques...
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         MUSIC
+    ====================================================== -->
+
+    <section
+        id="musicPage"
+        style="display:none">
+
+
+        <div class="section-title">
+
+            <h2>
+
+                Toutes les musiques
+
+            </h2>
+
+        </div>
+
+
+        <div
+            id="allSongs"
+            class="song-list">
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         VIDEOS
+    ====================================================== -->
+
+    <section
+        id="videosPage"
+        style="display:none">
+
+
+        <div class="section-title">
+
+            <h2>
+
+                Clips officiels
+
+            </h2>
+
+        </div>
+
+
+        <div
+            id="videosList"
+            class="song-list">
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         ARTIST
+    ====================================================== -->
+
+    <section
+        id="artistPage"
+        style="display:none">
+
+
+        <div class="hero">
+
+
+            <div class="hero-content">
+
+
+                <img
+                    id="artistPhoto2"
+                    class="artist-photo"
+                    alt="Tiga Disiel"
+                >
+
+
+                <div>
+
+                    <h1 id="artistName2">
+
+                        Tiga Disiel
+
+                    </h1>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- BIOGRAPHIE -->
+
+        <div class="about">
+
+            <p id="fullBio">
+
+                Chargement...
+
+            </p>
+
+        </div>
+
+
+        <!-- =================================================
+             RÉSEAUX SOCIAUX
+        ================================================== -->
+
+        <div class="section social-section">
+
+            <div class="section-title">
+
+                <h2>
+
+                    Suivre Tiga Disiel
+
+                </h2>
+
+            </div>
+
+
+            <div
+                id="socialLinks"
+                class="social-links">
+
+                <div class="loading-social">
+
+                    Chargement des réseaux...
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+    </section>
+
+</main>
+
+
+<!-- =======================================================
+     PLAYER
+======================================================= -->
+
+<div class="player">
+
+    <div class="player-inner">
+
+
+        <div class="player-top">
+
+
+            <img
+                id="playerCover"
+                class="player-cover"
+                alt="Pochette"
+            >
+
+
+            <div class="player-info">
+
+
+                <div
+                    id="playerTitle"
+                    class="player-title">
+
+                    Aucun morceau
+
+                </div>
+
+
+                <div
+                    id="playerStatus"
+                    class="player-status">
+
+                    Tiga Disiel
+
+                </div>
+
+            </div>
+
+
+            <button
+                id="playButton"
+                class="player-button"
+                aria-label="Lecture">
+
+                <i class="fa-solid fa-play"></i>
+
+            </button>
+
+        </div>
+
+
+        <input
+            id="progress"
+            class="progress"
+            type="range"
+            min="0"
+            max="100"
+            value="0"
+        >
+
+
+        <audio
+            id="audio"
+            preload="metadata">
+
+        </audio>
+
+    </div>
+
+</div>
+
+
+<!-- TOAST -->
+
+<div id="toast"></div>
+
+
+<script>
+
+
+/* =========================================================
+   SUPABASE
+========================================================= */
+
+const SUPABASE_URL =
+    "https://hkrntubzfqnoadpjzawd.supabase.co";
+
+
+const SUPABASE_KEY =
+    "sb_publishable_BcurnqSl_okrPKKO7KOlWQ_awuwRBRU";
+
+
+const supabaseClient =
+    window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_KEY
+    );
+
+
+/* =========================================================
+   VARIABLES
+========================================================= */
+
+let songs = [];
+
+let currentSong = null;
+
+let artistData = null;
+
+
+const audio =
+    document.getElementById("audio");
+
+
+const playButton =
+    document.getElementById("playButton");
+
+
+const progress =
+    document.getElementById("progress");
+
+
+/* =========================================================
+   TOAST
+========================================================= */
+
+function showToast(message){
+
+    const toast =
+        document.getElementById("toast");
+
+
+    toast.textContent = message;
+
+
+    toast.classList.add("show");
+
+
+    setTimeout(() => {
+
+        toast.classList.remove("show");
+
+    },3000);
+
+}
+
+
+/* =========================================================
+   STORAGE URL
+========================================================= */
+
+function storageUrl(bucket,path){
+
+    if(!path){
+
+        return "";
+
+    }
+
+
+    /*
+       Si Supabase contient déjà une URL complète,
+       on la garde.
+    */
+
+    if(
+        typeof path === "string" &&
+        (
+            path.startsWith("http://") ||
+            path.startsWith("https://")
+        )
+    ){
+
+        return path;
+
+    }
+
+
+    return supabaseClient
+        .storage
+        .from(bucket)
+        .getPublicUrl(path)
+        .data
+        .publicUrl;
+
+}
+
+
+/* =========================================================
+   HTML SECURITY
+========================================================= */
+
+function escapeHtml(value){
+
+    return String(value || "")
+
+        .replaceAll("&","&amp;")
+
+        .replaceAll("<","&lt;")
+
+        .replaceAll(">","&gt;")
+
+        .replaceAll('"',"&quot;")
+
+        .replaceAll("'","&#039;");
+
+}
+
+
+/* =========================================================
+   SOCIAL NETWORKS
+========================================================= */
+
+function loadSocialLinks(data){
+
+    const container =
+        document.getElementById("socialLinks");
+
+
+    if(!container){
+
+        return;
+
+    }
+
+
+    /*
+       Correspondance avec les colonnes
+       de la table artist dans Supabase.
+    */
+
+    const networks = [
+
+        {
+            key:"facebook_url",
+            name:"Facebook",
+            icon:"fa-brands fa-facebook-f"
+        },
+
+        {
+            key:"instagram_url",
+            name:"Instagram",
+            icon:"fa-brands fa-instagram"
+        },
+
+        {
+            key:"tiktok_url",
+            name:"TikTok",
+            icon:"fa-brands fa-tiktok"
+        },
+
+        {
+            key:"youtube_url",
+            name:"YouTube",
+            icon:"fa-brands fa-youtube"
+        },
+
+        {
+            key:"x_url",
+            name:"X",
+            icon:"fa-brands fa-x-twitter"
+        },
+
+        {
+            key:"audiomack_url",
+            name:"Audiomack",
+            icon:"fa-brands fa-audiomack"
+        },
+
+        {
+            key:"whatsapp_url",
+            name:"WhatsApp",
+            icon:"fa-brands fa-whatsapp"
+        }
+
+    ];
+
+
+    /*
+       On garde uniquement les réseaux
+       dont le lien existe.
+    */
+
+    const available =
+        networks.filter(network => {
+
+            const url =
+                data?.[network.key];
+
+
+            return (
+                typeof url === "string" &&
+                url.trim() !== ""
+            );
+
+        });
+
+
+    /*
+       Aucun réseau configuré.
+    */
+
+    if(!available.length){
+
+        container.innerHTML = `
+
+            <div class="empty">
+
+                Aucun réseau social disponible.
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    container.innerHTML = "";
+
+
+    /*
+       Création des boutons automatiquement.
+    */
+
+    available.forEach(network => {
+
+        const url =
+            data[network.key].trim();
+
+
+        const link =
+            document.createElement("a");
+
+
+        link.className =
+            "social-link";
+
+
+        link.href =
+            url;
+
+
+        link.target =
+            "_blank";
+
+
+        link.rel =
+            "noopener noreferrer";
+
+
+        link.setAttribute(
+            "aria-label",
+            network.name
+        );
+
+
+        link.innerHTML = `
+
+            <i class="${network.icon}"></i>
+
+            <span class="social-name">
+
+                ${escapeHtml(network.name)}
+
+            </span>
+
+        `;
+
+
+        container.appendChild(link);
+
+    });
+
+}
+
+
+/* =========================================================
+   ARTIST
+========================================================= */
+
+async function loadArtist(){
+
+    const {
+        data,
+        error
+    } =
+        await supabaseClient
+        .from("artist")
+        .select("*")
+        .limit(1)
+        .maybeSingle();
+
+
+    if(error){
+
+        console.error(
+            "Erreur artiste:",
+            error
+        );
+
+
+        document.getElementById("artistBio")
+            .textContent =
+            "Impossible de charger les informations.";
+
+
+        const socialContainer =
+            document.getElementById("socialLinks");
+
+
+        if(socialContainer){
+
+            socialContainer.innerHTML = `
+
+                <div class="empty">
+
+                    Impossible de charger les réseaux.
+
+                </div>
+
+            `;
+
+        }
+
+
+        return null;
+
+    }
+
+
+    if(!data){
+
+        const socialContainer =
+            document.getElementById("socialLinks");
+
+
+        if(socialContainer){
+
+            socialContainer.innerHTML = `
+
+                <div class="empty">
+
+                    Aucun profil artiste disponible.
+
+                </div>
+
+            `;
+
+        }
+
+
+        return null;
+
+    }
+
+
+    /*
+       On conserve toutes les données de l'artiste.
+    */
+
+    artistData = data;
+
+
+    const name =
+        data.stage_name ||
+        "Tiga Disiel";
+
+
+    const bio =
+        data.biography ||
+        "Artiste congolais.";
+
+
+    document.getElementById("artistName")
+        .textContent = name;
+
+
+    document.getElementById("artistName2")
+        .textContent = name;
+
+
+    document.getElementById("artistBio")
+        .textContent = bio;
+
+
+    document.getElementById("fullBio")
+        .textContent = bio;
+
+
+    /* =====================================================
+       RÉSEAUX SOCIAUX
+
+       Les liens viennent directement de Supabase.
+    ====================================================== */
+
+    loadSocialLinks(data);
+
+
+    /*
+       Photo de l'artiste.
+
+       photo_url peut contenir :
+
+       FB_IMG_1791295998438.jpg
+
+       donc on construit automatiquement
+       l'URL du bucket covers.
+    */
+
+    if(data.photo_url){
+
+        const photoUrl =
+            storageUrl(
+                "covers",
+                data.photo_url
+            );
+
+
+        document.getElementById("artistPhoto")
+            .src = photoUrl;
+
+
+        document.getElementById("artistPhoto2")
+            .src = photoUrl;
+
+
+        document.getElementById("splashPhoto")
+            .src = photoUrl;
+
+    }
+
+
+    return data;
+
+}
+
+
+/* =========================================================
+   SONGS
+========================================================= */
+
+async function loadSongs(){
+
+    const {
+        data,
+        error
+    } =
+        await supabaseClient
+        .from("songs")
+        .select(`
+            id,
+            title,
+            cover_path,
+            audio_path,
+            duration_seconds,
+            downloadable,
+            play_count,
+            release_date,
+            published
+        `)
+        .eq("published",true)
+        .order(
+            "release_date",
+            {
+                ascending:false
+            }
+        );
+
+
+    if(error){
+
+        console.error(
+            "Erreur musiques:",
+            error
+        );
+
+
+        document.getElementById("latestSongs")
+            .innerHTML = `
+
+                <div class="empty">
+
+                    Impossible de charger les musiques.
+
+                </div>
+
+            `;
+
+        return;
+
+    }
+
+
+    /*
+       On garde les données Supabase intactes.
+
+       On supprime seulement les doublons
+       visuellement dans l'application.
+    */
+
+    const uniqueSongs = [];
+
+
+    const titles = new Set();
+
+
+    (data || []).forEach(song => {
+
+        const key =
+            String(song.title || "")
+                .trim()
+                .toLowerCase();
+
+
+        if(!titles.has(key)){
+
+            titles.add(key);
+
+            uniqueSongs.push(song);
+
+        }
+
+    });
+
+
+    songs = uniqueSongs;
+
+
+    renderSongs(
+        songs.slice(0,5),
+        "latestSongs"
+    );
+
+
+    renderSongs(
+        songs,
+        "allSongs"
+    );
+
+}
+
+
+/* =========================================================
+   DISPLAY SONGS
+========================================================= */
+
+function renderSongs(
+    list,
+    containerId
+){
+
+    const container =
+        document.getElementById(containerId);
+
+
+    if(!list.length){
+
+        container.innerHTML = `
+
+            <div class="empty">
+
+                Aucune musique disponible.
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    container.innerHTML = "";
+
+
+    list.forEach(song => {
+
+
+        const cover =
+            storageUrl(
+                "covers",
+                song.cover_path
+            );
+
+
+        const item =
+            document.createElement("div");
+
+
+        item.className = "song";
+
+
+        item.innerHTML = `
+
+            <img
+                class="cover"
+                src="${cover}"
+                alt="Pochette"
+                onerror="this.style.visibility='hidden'"
+            >
+
+
+            <div class="song-info">
+
+
+                <div class="song-title">
+
+                    ${escapeHtml(song.title)}
+
+                </div>
+
+
+                <div class="song-meta">
+
+                    ${Number(song.play_count || 0)}
+                    écoutes
+
+                </div>
+
+
+            </div>
+
+
+            <div class="actions">
+
+
+                <button
+                    class="action play"
+                    data-play="${String(song.id)}"
+                    aria-label="Lire">
+
+                    <i class="fa-solid fa-play"></i>
+
+                </button>
+
+
+                ${
+                    song.downloadable
+                    ?
+                    `
+
+                    <button
+                        class="action"
+                        data-download="${String(song.id)}"
+                        aria-label="Télécharger">
+
+                        <i class="fa-solid fa-download"></i>
+
+                    </button>
+
+                    `
+                    :
+                    ""
+                }
+
+
+            </div>
+
+        `;
+
+
+        container.appendChild(item);
+
+    });
+
+
+    /*
+       On compare les IDs en String.
+
+       Supabase peut retourner un nombre,
+       tandis que dataset retourne une chaîne.
+    */
+
+    container
+        .querySelectorAll("[data-play]")
+        .forEach(button => {
+
+
+            button.addEventListener(
+                "click",
+                function(){
+
+                    const id =
+                        String(
+                            this.dataset.play
+                        );
+
+
+                    const song =
+                        songs.find(
+                            s =>
+                            String(s.id) === id
+                        );
+
+
+                    if(song){
+
+                        playSong(song);
+
+                    }
+
+                }
+            );
+
+        });
+
+
+    container
+        .querySelectorAll("[data-download]")
+        .forEach(button => {
+
+
+            button.addEventListener(
+                "click",
+                function(){
+
+                    const id =
+                        String(
+                            this.dataset.download
+                        );
+
+
+                    const song =
+                        songs.find(
+                            s =>
+                            String(s.id) === id
+                        );
+
+
+                    if(song){
+
+                        downloadSong(song);
+
+                    }
+
+                }
+            );
+
+        });
+
+}
+
+
+/* =========================================================
+   PLAY SONG
+========================================================= */
+
+async function playSong(song){
+
+    if(!song){
+
+        return;
+
+    }
+
+
+    const url =
+        storageUrl(
+            "music",
+            song.audio_path
+        );
+
+
+    if(!url){
+
+        showToast(
+            "Fichier audio introuvable."
+        );
+
+        return;
+
+    }
+
+
+    console.log(
+        "Audio URL:",
+        url
+    );
+
+
+    currentSong = song;
+
+
+    document.getElementById("playerTitle")
+        .textContent =
+        song.title;
+
+
+    document.getElementById("playerStatus")
+        .textContent =
+        "Tiga Disiel";
+
+
+    const cover =
+        storageUrl(
+            "covers",
+            song.cover_path
+        );
+
+
+    if(cover){
+
+        document.getElementById("playerCover")
+            .src = cover;
+
+    }
+
+
+    /*
+       On remet la position au début.
+    */
+
+    audio.pause();
+
+    audio.currentTime = 0;
+
+    audio.src = url;
+
+    audio.load();
+
+
+    progress.value = 0;
+
+
+    try{
+
+        await audio.play();
+
+
+        updatePlayButton(true);
+
+
+        /*
+           Enregistrement de l'écoute.
+        */
+
+        const {
+            error: playError
+        } =
+            await supabaseClient
+            .from("plays")
+            .insert({
+                song_id:song.id
+            });
+
+
+        if(playError){
+
+            console.warn(
+                "Écoute non enregistrée:",
+                playError
+            );
+
+        }
+
+    }
+    catch(error){
+
+        console.error(
+            "Erreur lecture audio:",
+            error
+        );
+
+
+        updatePlayButton(false);
+
+
+        showToast(
+            "Impossible de lire cette musique. Vérifie que le fichier audio est public dans le bucket music."
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   PLAY BUTTON
+========================================================= */
+
+function updatePlayButton(isPlaying){
+
+    if(isPlaying){
+
+        playButton.innerHTML =
+            '<i class="fa-solid fa-pause"></i>';
+
+    }
+    else{
+
+        playButton.innerHTML =
+            '<i class="fa-solid fa-play"></i>';
+
+    }
+
+}
+
+
+/* =========================================================
+   PLAYER PLAY / PAUSE
+========================================================= */
+
+playButton.addEventListener(
+    "click",
+    async function(){
+
+        if(!currentSong){
+
+            showToast(
+                "Sélectionne d'abord une musique."
+            );
+
+            return;
+
+        }
+
+
+        try{
+
+            if(audio.paused){
+
+                await audio.play();
+
+                updatePlayButton(true);
+
+            }
+            else{
+
+                audio.pause();
+
+                updatePlayButton(false);
+
+            }
+
+        }
+        catch(error){
+
+            console.error(error);
+
+            showToast(
+                "La lecture audio a échoué."
+            );
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   AUDIO EVENTS
+========================================================= */
+
+audio.addEventListener(
+    "timeupdate",
+    function(){
+
+        if(
+            !audio.duration ||
+            !Number.isFinite(audio.duration)
+        ){
+
+            return;
+
+        }
+
+
+        progress.value =
+            (
+                audio.currentTime /
+                audio.duration
+            ) * 100;
+
+    }
+);
+
+
+audio.addEventListener(
+    "loadedmetadata",
+    function(){
+
+        progress.value = 0;
+
+    }
+);
+
+
+audio.addEventListener(
+    "play",
+    function(){
+
+        updatePlayButton(true);
+
+    }
+);
+
+
+audio.addEventListener(
+    "pause",
+    function(){
+
+        updatePlayButton(false);
+
+    }
+);
+
+
+audio.addEventListener(
+    "ended",
+    function(){
+
+        updatePlayButton(false);
+
+        progress.value = 0;
+
+    }
+);
+
+
+audio.addEventListener(
+    "error",
+    function(){
+
+        console.error(
+            "Erreur HTML Audio:",
+            audio.error
+        );
+
+
+        updatePlayButton(false);
+
+        showToast(
+            "Le fichier audio ne peut pas être lu."
+        );
+
+    }
+);
+
+
+/* =========================================================
+   PROGRESS
+========================================================= */
+
+progress.addEventListener(
+    "input",
+    function(){
+
+        if(
+            audio.duration &&
+            Number.isFinite(audio.duration)
+        ){
+
+            audio.currentTime =
+                (
+                    Number(this.value) /
+                    100
+                ) *
+                audio.duration;
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   DOWNLOAD
+========================================================= */
+
+async function downloadSong(song){
+
+    if(!song.downloadable){
+
+        return;
+
+    }
+
+
+    const url =
+        storageUrl(
+            "music",
+            song.audio_path
+        );
+
+
+    if(!url){
+
+        showToast(
+            "Fichier audio introuvable."
+        );
+
+        return;
+
+    }
+
+
+    const {
+        error
+    } =
+        await supabaseClient
+        .from("downloads")
+        .insert({
+            song_id:song.id
+        });
+
+
+    if(error){
+
+        console.warn(
+            "Téléchargement non enregistré:",
+            error
+        );
+
+    }
+
+
+    /*
+       Téléchargement direct.
+    */
+
+    const link =
+        document.createElement("a");
+
+
+    link.href = url;
+
+
+    link.download =
+        (song.title || "tiga-disiel")
+        .replace(
+            /[^a-z0-9\- ]/gi,
+            ""
+        )
+        .trim()
+        + ".mp3";
+
+
+    link.target = "_blank";
+
+
+    link.rel =
+        "noopener noreferrer";
+
+
+    document.body.appendChild(link);
+
+
+    link.click();
+
+
+    link.remove();
+
+}
+
+
+/* =========================================================
+   VIDEOS
+========================================================= */
+
+async function loadVideos(){
+
+    const container =
+        document.getElementById("videosList");
+
+
+    const {
+        data,
+        error
+    } =
+        await supabaseClient
+        .from("videos")
+        .select("*")
+        .eq("published",true)
+        .order(
+            "created_at",
+            {
+                ascending:false
+            }
+        );
+
+
+    if(error){
+
+        console.error(
+            "Erreur vidéos:",
+            error
+        );
+
+
+        container.innerHTML = `
+
+            <div class="empty">
+
+                Impossible de charger les clips.
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    if(!data || !data.length){
+
+        container.innerHTML = `
+
+            <div class="empty">
+
+                Aucun clip disponible.
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    container.innerHTML = "";
+
+
+    data.forEach(video => {
+
+
+        let thumbnail = "";
+
+
+        if(video.thumbnail_path){
+
+            thumbnail =
+                storageUrl(
+                    "covers",
+                    video.thumbnail_path
+                );
+
+        }
+
+
+        const item =
+            document.createElement("div");
+
+
+        item.className =
+            "song video-item";
+
+
+        item.innerHTML = `
+
+
+            ${
+                thumbnail
+                ?
+                `
+
+                <img
+                    class="cover"
+                    src="${thumbnail}"
+                    alt="Clip"
+                >
+
+                `
+                :
+                `
+                <div
+                    class="cover"
+                    style="
+                        display:flex;
+                        align-items:center;
+                        justify-content:center
+                    "
+                >
+
+                    <i class="fa-solid fa-video"></i>
+
+                </div>
+                `
+            }
+
+
+            <div class="song-info">
+
+
+                <div class="song-title">
+
+                    ${escapeHtml(video.title)}
+
+                </div>
+
+
+                <div class="song-meta">
+
+                    Clip officiel
+
+                </div>
+
+
+            </div>
+
+
+            <div class="actions">
+
+
+                ${
+                    video.video_url
+                    ?
+                    `
+
+                    <button
+                        class="action play"
+                        data-video="${escapeHtml(video.video_url)}"
+                        aria-label="Voir le clip">
+
+                        <i class="fa-solid fa-play"></i>
+
+                    </button>
+
+                    `
+                    :
+                    ""
+                }
+
+
+            </div>
+
+        `;
+
+
+        container.appendChild(item);
+
+    });
+
+
+    container
+        .querySelectorAll("[data-video]")
+        .forEach(button => {
+
+
+            button.addEventListener(
+                "click",
+                function(){
+
+                    window.open(
+                        this.dataset.video,
+                        "_blank",
+                        "noopener,noreferrer"
+                    );
+
+                }
+            );
+
+        });
+
+}
+
+
+/* =========================================================
+   NAVIGATION
+========================================================= */
+
+document
+    .querySelectorAll(".nav button")
+    .forEach(button => {
+
+
+        button.addEventListener(
+            "click",
+            async function(){
+
+
+                document
+                    .querySelectorAll(".nav button")
+                    .forEach(btn =>
+                        btn.classList.remove(
+                            "active"
+                        )
+                    );
+
+
+                this.classList.add("active");
+
+
+                const page =
+                    this.dataset.page;
+
+
+                document.getElementById("homePage")
+                    .style.display =
+                    page === "home"
+                    ? "block"
+                    : "none";
+
+
+                document.getElementById("musicPage")
+                    .style.display =
+                    page === "music"
+                    ? "block"
+                    : "none";
+
+
+                document.getElementById("videosPage")
+                    .style.display =
+                    page === "videos"
+                    ? "block"
+                    : "none";
+
+
+                document.getElementById("artistPage")
+                    .style.display =
+                    page === "artist"
+                    ? "block"
+                    : "none";
+
+
+                if(page === "videos"){
+
+                    await loadVideos();
+
+                }
+
+            }
+        );
+
+    });
+
+
+/* =========================================================
+   REFRESH
+========================================================= */
+
+document
+    .getElementById("refreshBtn")
+    .addEventListener(
+        "click",
+        async function(){
+
+            this.innerHTML =
+                '<i class="fa-solid fa-spinner fa-spin"></i>';
+
+
+            await loadArtist();
+
+
+            await loadSongs();
+
+
+            await loadVideos();
+
+
+            this.innerHTML =
+                '<i class="fa-solid fa-rotate"></i>';
+
+        }
+    );
+
+
+/* =========================================================
+   SPLASH
+========================================================= */
+
+function closeSplash(){
+
+    const splash =
+        document.getElementById(
+            "splashScreen"
+        );
+
+
+    setTimeout(
+        () => {
+
+            splash.classList.add("hide");
+
+        },
+        2200
+    );
+
+}
+
+
+/* =========================================================
+   INITIALISATION
+========================================================= */
+
+async function init(){
+
+    try{
+
+        /*
+           On charge l'artiste en premier afin que
+           sa photo puisse apparaître dans le splash.
+        */
+
+        await loadArtist();
+
+
+        await loadSongs();
+
+
+        closeSplash();
+
+    }
+    catch(error){
+
+        console.error(
+            "Erreur initialisation:",
+            error
+        );
+
+
+        closeSplash();
+
+    }
+
+}
+
+
+init();
+
+</script>
+
+</body>
+</html>
